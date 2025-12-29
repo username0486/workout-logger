@@ -1,35 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Navigate, Route, Routes } from 'react-router-dom'
+import { AppShell } from './app/AppShell'
+import { HomeScreen } from './screens/HomeScreen'
+import { StartWorkoutScreen } from './screens/StartWorkoutScreen'
+import { CreateExerciseScreen } from './screens/CreateExerciseScreen'
+import { TemplatesScreen } from './screens/TemplatesScreen'
+import { CreateTemplateScreen } from './screens/CreateTemplateScreen'
+import { WorkoutPreviewScreen } from './screens/WorkoutPreviewScreen'
+import { QuickPickScreen } from './screens/QuickPickScreen'
+import { SessionScreen } from './screens/SessionScreen'
+import { SessionSummaryScreen } from './screens/SessionSummaryScreen'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Routes>
+      <Route element={<AppShell />}>
+        <Route path="/" element={<HomeScreen />} />
+        <Route path="/start" element={<StartWorkoutScreen />} />
+        <Route path="/exercises/new" element={<CreateExerciseScreen />} />
+        <Route path="/templates" element={<TemplatesScreen />} />
+        <Route path="/templates/new" element={<CreateTemplateScreen />} />
+        <Route path="/quick-pick" element={<QuickPickScreen />} />
+        <Route path="/preview/:planId" element={<WorkoutPreviewScreen />} />
+        <Route path="/session/:sessionId" element={<SessionScreen />} />
+        <Route path="/session/:sessionId/summary" element={<SessionSummaryScreen />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Route>
+    </Routes>
   )
 }
-
-export default App

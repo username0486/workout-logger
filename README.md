@@ -1,73 +1,35 @@
-# React + TypeScript + Vite
+# Gym Log (memory-driven workout logging)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Low-cognitive-load workout log that assumes continuity unless you correct it. Workouts are **containers of exercises** (not prescriptions), and the UI stays quiet: no coaching, optimization, or goal tracking.
 
-Currently, two official plugins are available:
+## Run locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## What’s implemented
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **Home → Start Workout** flow with continuity (resumes active session automatically).
+- **Workout definition (templates)**: 4+ exercises (5–6 encouraged). Skips are logged in-session and **never modify the template**.
+- **Three exercise selection scenarios**
+  - **Predefined**: start from a template → preview ordered exercises + last performance.
+  - **Body focus**: Upper/Lower auto-assembles **5 most recent** for that focus (falls back to library if no history).
+  - **Suggested**: top 5 most frequent **from history only** (disabled until you have enough history).
+- **Execution & logging**
+  - Per set: **reps completed**, **weight**, **missed reps**
+  - Missed reps prompt (inline, no dialog): **“Was this intentional?”**
+  - **Rest timer** starts after each set; rest is auto-logged on the next set
+- **Progression suggestions**
+  - Start suggestions: heavier if recent; lighter if it’s been a while
+  - Next-time suggestions in the session summary use the **worst set**, not average
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Data & persistence
+
+- Local-first persistence via IndexedDB (Dexie): exercises, templates, draft plans, sessions, session exercises, and sets.
+- Seed exercise library lives in `src/data/exercises.seed.ts` (small starter list).
+
+## Notes on the “open exercise dataset” requirement
+
+This scaffold includes a **small seed snapshot** to keep the repo lightweight and editable. If you want a full dataset export (ExerciseDB / wrkout JSON / similar), replace or extend `src/data/exercises.seed.ts` and keep the normalization approach in `src/domain/normalize.ts`.
