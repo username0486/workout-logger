@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router-dom'
 import { useTemplates } from '../db/queries'
 import { createPlanFromTemplate } from '../db/actions'
 import { useState } from 'react'

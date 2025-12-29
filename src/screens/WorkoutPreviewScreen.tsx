@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from 'react-router'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useMemo, useState } from 'react'
 import { usePlan, useExercisesByIds, useActiveSessionId, useAllExercises } from '../db/queries'
 import { deferPlanExercise, reorderPlanExercise, startSessionFromPlan, updatePlan } from '../db/actions'

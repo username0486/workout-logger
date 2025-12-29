@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from 'react-router'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import { AppShell } from './app/AppShell'
 import { HomeScreen } from './screens/HomeScreen'
 import { StartWorkoutScreen } from './screens/StartWorkoutScreen'

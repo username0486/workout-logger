@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 import { createCustomExercise } from '../db/actions'
 
 function splitList(value: string): string[] {

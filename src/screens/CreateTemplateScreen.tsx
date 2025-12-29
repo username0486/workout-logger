@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 import { createWorkoutTemplate } from '../db/actions'
 import { useAllExercises, useExercisesByIds } from '../db/queries'
 import { normalizeName } from '../domain/normalize'
