@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router'
 import { useActiveSessionId, useExerciseCount, useTemplateCount } from '../db/queries'
 
 export function HomeScreen() {

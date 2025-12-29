@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router'
 import type { Exercise } from '../db/db'
 import { useExercisesByIds } from '../db/queries'
 import { useLastPerformance, useSession, useSessionExercises, useSetsForExerciseInSession } from '../db/sessionQueries'

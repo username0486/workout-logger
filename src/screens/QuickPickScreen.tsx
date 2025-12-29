@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import { createPlanQuickPick } from '../db/actions'
 import { ExercisePicker } from '../ui/ExercisePicker'
 import { errorMessage } from '../domain/errorMessage'

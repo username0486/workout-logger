@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router'
 import { useExercisesByIds } from '../db/queries'
 import { useSession, useSessionExercises, useSessionSets } from '../db/sessionQueries'
 import { endSession } from '../db/actions'
